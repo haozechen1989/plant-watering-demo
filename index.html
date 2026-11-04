@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f2f7f2">
+    <meta name="description" content="A simple, friendly way to keep your household plants on a watering schedule.">
+    <title>PlantPal | Your plants, on schedule</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="PlantPal home">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>plantpal</span>
+      </a>
+      <div class="topbar-actions">
+        <span class="date-label" id="today-label"></span>
+        <button class="button button-quiet plus-button" id="plus-open" type="button">
+          <span aria-hidden="true">✦</span> PlantPal Plus
+        </button>
+      </div>
+    </header>
+
+    <main class="page-shell" id="home">
+      <section class="welcome-row" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">YOUR HOME GARDEN</p>
+          <h1 id="page-title">Your plants, <span>on schedule.</span></h1>
+          <p class="welcome-copy">A little water at the right time goes a long way.</p>
+        </div>
+        <button class="button button-primary add-button" id="add-open" type="button">
+          <span class="button-plus" aria-hidden="true">+</span> Add a plant
+        </button>
+      </section>
+
+      <section class="overview" aria-label="Plant watering overview">
+        <div class="overview-item">
+          <span class="overview-icon icon-leaf" aria-hidden="true">♧</span>
+          <div><strong id="plant-count">0</strong><span>plants in your care</span></div>
+        </div>
+        <div class="overview-item">
+          <span class="overview-icon icon-sun" aria-hidden="true">☼</span>
+          <div><strong id="due-count">0</strong><span>need a drink today</span></div>
+        </div>
+        <div class="overview-note"><span class="status-dot" aria-hidden="true"></span> Your garden is looking good</div>
+      </section>
+
+      <div class="dashboard-layout">
+        <section class="plant-section" aria-labelledby="plants-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">THE LINEUP</p>
+              <h2 id="plants-heading">Your plants</h2>
+            </div>
+            <div class="filter-tabs" role="group" aria-label="Filter plants">
+              <button class="filter-tab is-active" type="button" data-filter="all" aria-pressed="true">All <span id="all-tab-count">0</span></button>
+              <button class="filter-tab" type="button" data-filter="due" aria-pressed="false">Needs water <span id="due-tab-count">0</span></button>
+            </div>
+          </div>
+          <div class="plant-list" id="plant-list" aria-live="polite"></div>
+          <div class="empty-state" id="empty-state" hidden>
+            <span class="empty-illustration" aria-hidden="true">🌱</span>
+            <h3>Your plant shelf is ready</h3>
+            <p>Add your first plant to start a simple watering routine.</p>
+            <button class="button button-primary" id="empty-add" type="button">Add a plant</button>
+          </div>
+        </section>
+
+        <aside class="side-column" aria-label="PlantPal extras">
+          <section class="care-note">
+            <div class="aside-heading"><span class="eyebrow">A SMALL REMINDER</span><span class="sun-mark" aria-hidden="true">☼</span></div>
+            <h2>Check the soil, too.</h2>
+            <p>A schedule is a helpful nudge. If the top inch of soil still feels damp, give your plant another day.</p>
+            <div class="care-note-footer"><span class="note-rule"></span><span>Little checks, happy leaves</span></div>
+          </section>
+
+          <section class="plus-promo">
+            <p class="eyebrow">A LITTLE MORE PLANT KNOW-HOW</p>
+            <h2>Care that gets personal.</h2>
+            <p>PlantPal Plus will offer plant-specific care suggestions, tailored to your collection.</p>
+            <button class="text-link" id="plus-preview" type="button">Preview PlantPal Plus <span aria-hidden="true">→</span></button>
+            <span class="promo-spark" aria-hidden="true">✳</span>
+          </section>
+
+          <section class="ad-slot" aria-label="Sample advertisement">
+            <span class="ad-label">SAMPLE AD</span>
+            <div class="ad-art" aria-hidden="true"><span>☀</span><span>↗</span></div>
+            <div><p class="ad-title">A brighter corner</p><p class="ad-copy">A little extra light for your leafy friends.</p></div>
+          </section>
+        </aside>
+      </div>
+      <footer class="page-footer"><span>Made for the plants on your windowsill.</span><span>PlantPal · A watering reminder, not a botanist</span></footer>
+    </main>
+
+    <dialog class="plant-dialog" id="add-dialog" aria-labelledby="add-dialog-title">
+      <form class="dialog-form" id="plant-form">
+        <div class="dialog-topline"><span class="dialog-kicker">GROW YOUR COLLECTION</span><button class="icon-button" type="button" data-close="add-dialog" aria-label="Close dialog">×</button></div>
+        <h2 id="add-dialog-title">Add a plant</h2>
+        <p class="dialog-intro">We’ll help you keep its next watering on your radar.</p>
+        <label for="plant-name">Plant name</label>
+        <input id="plant-name" name="name" type="text" placeholder="e.g. Fernie" maxlength="40" required autocomplete="off">
+        <label for="plant-type">Plant type</label>
+        <input id="plant-type" name="type" type="text" placeholder="e.g. Boston fern" maxlength="50" required autocomplete="off">
+        <label for="plant-frequency">Water every</label>
+        <div class="frequency-field"><input id="plant-frequency" name="frequency" type="number" min="1" max="365" value="7" required><span>days</span></div>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <div class="dialog-actions"><button class="button button-quiet" type="button" data-close="add-dialog">Cancel</button><button class="button button-primary" type="submit">Add plant</button></div>
+      </form>
+    </dialog>
+
+    <dialog class="plant-dialog plus-dialog" id="plus-dialog" aria-labelledby="plus-dialog-title">
+      <div class="dialog-form">
+        <div class="dialog-topline"><span class="dialog-kicker">PLANTPAL PLUS PREVIEW</span><button class="icon-button" type="button" data-close="plus-dialog" aria-label="Close dialog">×</button></div>
+        <span class="plus-dialog-mark" aria-hidden="true">✦</span>
+        <h2 id="plus-dialog-title">A little more personal.</h2>
+        <p class="dialog-intro">PlantPal Plus is a concept for personalized care recommendations. Here’s a sample of what it could look like:</p>
+        <div class="recommendation"><span class="recommendation-leaf" aria-hidden="true">🌿</span><p><strong>For your Monstera</strong><br>Try rotating it a quarter turn each week for more even growth. Check that the top inch of soil is dry before watering.</p></div>
+        <p class="preview-disclaimer">Preview only. No subscription or payment is available in this prototype.</p>
+        <div class="dialog-actions"><button class="button button-primary" type="button" data-close="plus-dialog">Sounds good</button></div>
+      </div>
+    </dialog>
+  </body>
+</html>
